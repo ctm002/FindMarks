@@ -21,11 +21,16 @@ namespace TrackMarks.Web
     [System.Web.Script.Services.ScriptService]
     public class WSMarks : WebService
     {
+
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("LogInFile");
+
+
         [WebMethod]
         public void FindMarksByRange(string start, string end)
         {
             try
             {
+                log.Info("FindMarksByRange");
                 Random rnd = new Random();
                 int tiempoDeConsulta = 5000;
 
