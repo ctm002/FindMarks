@@ -21,7 +21,6 @@ namespace TrackMarks.Web
     [System.Web.Script.Services.ScriptService]
     public class WSMarks : WebService
     {
-
         [WebMethod]
         public void FindMarksByRange(string start, string end)
         {
