@@ -36,7 +36,7 @@ namespace TrackMarks.Web
                 string id = "";
                 string hash = "";
                 string cookie = "";
-                int min = 30000; //30 segundos
+                int min = 10000; //30 segundos
                 int max = 50000; // 50 segundos
 
                 int contadorFilas = 1;
