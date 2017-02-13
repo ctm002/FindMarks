@@ -30,7 +30,6 @@ namespace TrackMarks.Web
         {
             try
             {
-                log.Info("FindMarksByRange");
                 Random rnd = new Random();
                 int tiempoDeConsulta = 5000;
 
@@ -45,7 +44,7 @@ namespace TrackMarks.Web
 
                 int contadorFilas = 1;
                 GetIDAndHash(ref id, ref hash, ref cookie);
-                Debug.Print(id + ' ' + hash);
+                log.Info(id + ' ' + hash);
 
                 int de = int.Parse(start);
                 int hasta = int.Parse(end);
@@ -57,7 +56,7 @@ namespace TrackMarks.Web
                     string d = objReturn["d"];
                     if (d.Contains("ErrorMessage"))
                     {
-                        Debug.Print("Nro de Registro:" + registro + ",d:" + d + ",id:" + id + ",hash:" + hash);
+                        log.Info("Nro de Registro:" + registro + ",d:" + d + ",id:" + id + ",hash:" + hash);
                         tiempoDeConsulta = rnd.Next(min, max);
                         Thread.Sleep(tiempoDeConsulta);
                         GetIDAndHash(ref id, ref hash, ref cookie);
@@ -71,7 +70,7 @@ namespace TrackMarks.Web
                     if (objCabeceraMarca != null && objCabeceraMarca.Marcas.Count > 0)
                     {
                         DetalleMarca detalle = objCabeceraMarca.Marcas[0];
-                        Debug.Print(contadorFilas + " " + string.Join(" ", detalle.cell));
+                        log.Info(contadorFilas + " " + string.Join(" ", detalle.cell));
 
                         string returnHash = objCabeceraMarca.Hash;
                         string[] datos = objCabeceraMarca.Marcas[0].cell.ToArray();
@@ -86,7 +85,7 @@ namespace TrackMarks.Web
                         d = objReturn["d"];
                         while (d.Contains("ErrorMessage"))
                         {
-                            Debug.Print("Nro de Solicitud:" + nroSolicitud + ",d:" + d + ",id:" + id + ",hash:" + hash);
+                            log.Info("Nro de Solicitud:" + nroSolicitud + ",d:" + d + ",id:" + id + ",hash:" + hash);
                             tiempoDeConsulta = rnd.Next(min, max);
                             Thread.Sleep(tiempoDeConsulta);
 
@@ -99,12 +98,11 @@ namespace TrackMarks.Web
 
                         CabeceraSolicitud objCabeceraSolicitud = oJS.Deserialize<CabeceraSolicitud>(objReturn["d"]);
                         string solicitudJSON = oJS.Serialize(objCabeceraSolicitud);
-                        Debug.Print(solicitudJSON);
+                        log.Info(solicitudJSON);
 
                         objCabeceraSolicitud.Marca.NumeroSolicitud = nroSolicitud;
                         solicitudesInapi.Add(objCabeceraSolicitud);
                         hash = objCabeceraSolicitud.Hash;
-
                     }
                     contadorFilas += 1;
                     tiempoDeConsulta = rnd.Next(min, max);
